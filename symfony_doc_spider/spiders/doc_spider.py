@@ -62,4 +62,3 @@ class DocSpider(CrawlSpider):
         depth += 1
         for subSection in section.xpath('div[@class="section"]'):
             self.parseSection(response, subSection, depth)
-            return
