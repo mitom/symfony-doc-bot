@@ -45,9 +45,9 @@ class DocSpider(CrawlSpider):
         item = SectionItem()
 
         # absolute url to the section (granted to be unique)
-        item["id"] = (response.url+ '#' + section.xpath('@id').extract()[0])
+        item["id"] = response.url+ '#' + section.xpath('@id').extract()[0]
         # header of the section
-        item["title"] = (section.xpath("h%d//text()" % depth).extract()[0])
+        item["title"] = section.xpath("h%d//text()" % depth).extract()[0]
         # The text of the section html, whitespace stripped and single lined
         content = ' '.join(section.xpath('p//text()').extract()).strip().replace('\n', ' ')
         # The text of the notes html, whitespace stripped and single lined
