@@ -10,4 +10,10 @@ class SectionItem(Item):
     title = Field()
     content = Field()
 
-    pass
+    def extract(self):
+        doc = {}
+        doc['id'] = self['id'].encode('utf8', 'ignore')
+        doc['title'] = self['title'].encode('utf8', 'ignore')
+        doc['content'] = self['content'].encode('utf8', 'ignore')
+
+        return doc

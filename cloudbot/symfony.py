@@ -1,21 +1,22 @@
-from solr import Solr
 from util import hook
+from elasticutils import S
+
 
 @hook.command
 @hook.command('sf')
 def symfony(inp):
-    si = Solr("http://localhost:8080/solr")
-    query = createQuery(inp)
-    results = si.select('title:%s^20 OR content:%s^10' % (query, query), rows=3).results
-    
+    search = S()
+    results = search.query(content__text=inp)[:5].execute()
+
     if not len(results):
         return "Sorry, seems like I can't help you with that."
 
-    topScore = results[0]['score']
+    topScore = results.results[0]['_score']
     matches = []
+    print topScore
     for result in results:
-        if result['score'] + 1 >= topScore:
-            matches.append(result['id'])
+        if result._score + 1 >= topScore:
+            matches.append(result.id)
     
     if len(matches) > 1:
         responseText = "These are the docs I found most relevant to you: %s"
