@@ -9,9 +9,9 @@ class SectionPipeline(object):
                 body={
                     'mappings': {
                         'doc-section-type': {
-                            'id': {'type': 'string', 'boost': 5},
-                            'tags': {'type': 'string', 'boost': 4, 'index_name': 'tag'},
-                            'title': {'type': 'string', 'boost': 3},
+                            'id': {'type': 'string', 'boost': 10},
+                            'tags': {'type': 'string', 'boost': 8},
+                            'title': {'type': 'string', 'boost': 4},
                             'content': {'type': 'string'},
                             }
                     }
