@@ -44,10 +44,21 @@ class DocSpider(CrawlSpider):
     def parseSection(self, response, section, depth):
         item = SectionItem()
 
-        # absolute url to the section (granted to be unique)
-        item["id"] = response.url+ '#' + section.xpath('@id').extract()[0]
+        # split the url to get the *.html part then split it again to remove everything after the last dot
+        pageName = response.url.rsplit('/',1)[1].rsplit('.', 1)[0]
+        # When the depth is 1 we are parsing the main header of the page,
+        # therefore we don't need the # part
+        if depth == 1:
+            item['id'] = response.url
+        else:
+            # absolute url to the section (granted to be unique)
+            item["id"] = response.url+ '#' + section.xpath('@id').extract()[0]
+
+        item["tags"] = [pageName]
+
         # header of the section
         item["title"] = section.xpath("h%d//text()" % depth).extract()[0]
+
         # The text of the section html, whitespace stripped and single lined
         content = ' '.join(section.xpath('p//text()').extract()).strip().replace('\n', ' ')
         # The text of the notes html, whitespace stripped and single lined
