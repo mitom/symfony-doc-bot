@@ -1,11 +1,8 @@
 import elasticutils
 
 class SectionPipeline(object):
-    def __init__(self):
-        self.es = elasticutils.get_es()
-
-
     def open_spider(self, spider):
+        self.es = elasticutils.get_es()
         if not self.es.indices.exists('doc-index'):
             self.es.indices.create(
                 index='doc-index',
@@ -16,7 +13,7 @@ class SectionPipeline(object):
                             'tags': {'type': 'string', 'boost': 4, 'index_name': 'tag'},
                             'title': {'type': 'string', 'boost': 3},
                             'content': {'type': 'string'},
-                        }
+                            }
                     }
                 }
             )
@@ -29,6 +26,3 @@ class SectionPipeline(object):
         self.es.index(index='doc-index', doc_type='doc-section-type', body=item.extract(), id=item.extract()['id'])
 
         return item
-
-    def close_spider(self, spider):
-        self.es.flush()

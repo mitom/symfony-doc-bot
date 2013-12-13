@@ -6,7 +6,8 @@ from elasticutils import S
 @hook.command('sf')
 def symfony(inp):
     search = S()
-    results = search.query(tag__match=inp, title__match=inp, content__match=inp, should=True)[:5].execute()
+    # cant fit more than 3 links into 1 irs message
+    results = search.query(tag__match=inp, title__match=inp, content__match=inp, should=True)[:3].execute()
 
     if not len(results):
         return "Sorry, seems like I can't help you with that."
