@@ -14,7 +14,15 @@ class SectionPipeline(object):
                             'title': {'type': 'string', 'boost': 4},
                             'content': {'type': 'string'},
                             }
-                    }
+                    },
+					'analysis': {
+						'analyzers': {
+							'default': {
+								'type': 'snowball',
+								"char_filter": ['html_strip']
+							}
+						}
+					}
                 }
             )
 
