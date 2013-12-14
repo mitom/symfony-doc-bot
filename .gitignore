@@ -1,6 +1,5 @@
 .idea
 .vagrant
-Vagrantfile
 
 *.py[cod]
 
