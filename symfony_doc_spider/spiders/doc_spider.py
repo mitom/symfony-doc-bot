@@ -18,7 +18,6 @@ class DocSpider(CrawlSpider):
         "http://symfony.com/doc/current/book/index.html",
         "http://symfony.com/doc/current/cookbook/index.html"
     ]
-    items = []
 
     rules = (
         Rule(SgmlLinkExtractor(
@@ -33,13 +32,14 @@ class DocSpider(CrawlSpider):
         sel = sel.css('div.doc_page')
         # Needed to properly match the section headers (h1, h2...)
         depth = 1
+        items = []
 
         # Traverse every first level section
         for section in sel.xpath('div[@class="section"]'):
-            self.parseSection(response, section, depth)
+            items = items + self.parseSection(response, section, depth)
             break
 
-        return self.items
+        return items
 
     def parseSection(self, response, section, depth):
         item = SectionItem()
@@ -66,9 +66,11 @@ class DocSpider(CrawlSpider):
         item["content"] = content
 
         # add the section to the items
-        self.items.append(item)
+        items = [item]
 
         # Traverse every next level section
         depth += 1
         for subSection in section.xpath('div[@class="section"]'):
-            self.parseSection(response, subSection, depth)
+            items = items + self.parseSection(response, subSection, depth)
+
+        return items
