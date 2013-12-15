@@ -18,7 +18,7 @@ def symfony(inp):
     matches = []
     print topScore
     for result in results:
-        if result._score + 1 >= topScore:
+        if result._score + 0.3 >= topScore:
             matches.append(result.id)
     
     if len(matches) > 1:
