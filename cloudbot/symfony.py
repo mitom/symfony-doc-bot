@@ -1,11 +1,13 @@
 from util import hook
-from elasticutils import S
-
+import elasticutils
 
 @hook.command
 @hook.command('sf')
 def symfony(inp):
-    search = S()
+    if not elasticutils.get_es().indices.exists('doc-index'):
+        return "Index currently unavailable. Try again in a bit."
+
+    search = elasticutils.S().indexes('doc-index').doctypes('doc-section-type')
     # cant fit more than 3 links into 1 irs message
     results = search.query(tags__match=inp, title__match=inp, content__match=inp, should=True)[:3].execute()
 
