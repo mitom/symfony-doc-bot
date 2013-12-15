@@ -8,7 +8,7 @@ def symfony(inp):
         return "Index currently unavailable. Try again in a bit."
 
     search = elasticutils.S().indexes('doc-index').doctypes('doc-section-type')
-    # cant fit more than 3 links into 1 irs message
+    # cant fit more than 3 links into 1 irc message
     results = search.query(tags__match=inp, title__match=inp, content__match=inp, should=True)[:3].execute()
 
     if not len(results):
