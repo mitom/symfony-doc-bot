@@ -13,9 +13,11 @@ class SectionItem(Item):
 
     def extract(self):
         doc = {}
-        doc['id'] = self['id'].encode('utf8', 'ignore')
+        doc['url'] = self['id'].encode('utf8', 'ignore')
         doc['title'] = self['title'].encode('utf8', 'ignore')
         doc['content'] = self['content'].encode('utf8', 'ignore')
         doc['tags'] = self['tags']
+        if '#' not in doc['url']:
+            doc['boost'] = 1.5
 
         return doc
