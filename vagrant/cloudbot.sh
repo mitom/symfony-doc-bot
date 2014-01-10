@@ -4,9 +4,9 @@ echo "--> Installing cloudbot"
 sudo apt-get install -y git libenchant-dev libenchant1c2a
 
 DIR=/opt/cloudbot/
-mkdir -p $DIR
+sudo mkdir -p $DIR
 
-git clone https://github.com/ClouDev/CloudBot $DIR
+sudo git clone https://github.com/ClouDev/CloudBot $DIR
 sudo pip install -r $DIR/requirements.txt
 
 # For some unknown reason the bot comes with a bunch of plugins added by default
@@ -27,7 +27,7 @@ do
   done
   if [ $match == 0 ]
   then
-    rm $file
+    sudo rm -f $file
   fi
 done
 
