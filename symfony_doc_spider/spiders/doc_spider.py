@@ -16,7 +16,8 @@ class DocSpider(CrawlSpider):
     start_urls = [
         "http://symfony.com/doc/current/reference/index.html",
         "http://symfony.com/doc/current/book/index.html",
-        "http://symfony.com/doc/current/cookbook/index.html"
+        "http://symfony.com/doc/current/cookbook/index.html",
+        "http://symfony.com/doc/current/bundles/index.html"
     ]
 
     rules = (
