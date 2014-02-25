@@ -54,7 +54,7 @@ class DocSpider(CrawlSpider):
             # absolute url to the section (granted to be unique)
             item["id"] = response.url+ '#' + section.xpath('@id').extract()[0]
 
-        item["tags"] = [pageName]
+        item["tags"] = [pageName.replace('_', ' ')]
 
         # header of the section
         item["title"] = section.xpath("h%d//text()" % depth).extract()[0]
