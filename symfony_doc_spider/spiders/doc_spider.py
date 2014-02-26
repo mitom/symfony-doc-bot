@@ -17,6 +17,7 @@ class DocSpider(CrawlSpider):
         "http://symfony.com/doc/current/reference/index.html",
         "http://symfony.com/doc/current/book/index.html",
         "http://symfony.com/doc/current/cookbook/index.html",
+        "http://symfony.com/doc/current/components/index.html",
         "http://symfony.com/doc/current/bundles/index.html"
     ]
 
