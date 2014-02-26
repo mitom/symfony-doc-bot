@@ -17,6 +17,7 @@ class SectionPipeline(object):
                     'doc-section-type': {
                         'analyzer': 'snowball',
                         'url': {'type': 'string'},
+                        'category': {'type': 'string'},
                         'tags': {'type': 'string', 'boost': 1.8},
                         'title': {'type': 'string', 'boost': 1},
                         'content': {'type': 'string'},
