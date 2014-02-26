@@ -10,21 +10,20 @@ class SectionItem(Item):
     title = Field()
     content = Field()
     tags = Field()
+    boost = Field()
+
+    def add_tag(self, tag):
+        if tag not in self['tags']:
+            self['tags'].append(tag)
 
     def extract(self):
         doc = {}
         doc['url'] = self['id'].encode('utf8', 'ignore')
-        boost = 1
-
-        # hard code hack to return this for "asset"
-        if doc['url'] == 'http://symfony.com/doc/current/book/templating.html#linking-to-assets' and 'asset' not in self['tags']:
-            self['tags'].append('asset')
-            boost += 0.25
+        doc['boost'] = self['boost']
 
         doc['title'] = self['title'].encode('utf8', 'ignore')
         doc['content'] = self['content'].encode('utf8', 'ignore')
         doc['tags'] = self['tags']
         if '#' not in doc['url']:
-            boost += 0.2
-        doc['boost'] = boost
+            doc['boost'] += 0.2
         return doc

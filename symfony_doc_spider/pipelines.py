@@ -1,6 +1,9 @@
 import elasticutils
+import json
 
 class SectionPipeline(object):
+    tags = {}
+
     def open_spider(self, spider):
         self.es = elasticutils.get_es()
 
@@ -23,11 +26,28 @@ class SectionPipeline(object):
             }
         )
 
+        f = open('tags.json', 'r')
+        self.tags = json.loads(f.read())
+
     def process_item(self, item, spider):
+        # default boost
+        item.setdefault('boost', 1)
+
         # if there is no content it is probably (hopefully) a section with only config/code in it
         if item['content']== '':
             item['content'] = 'config code reference'
 
-        self.es.index(index='doc-index', doc_type='doc-section-type', body=item.extract(), id=item.extract()['url'])
+        extracted = item.extract()
+
+        if extracted['url'] in self.tags:
+            data = self.tags[extracted['url']]
+            for tag in data[0]:
+                item.add_tag(tag)
+            item['boost'] += data[1]
+
+        # extract the new dataset
+        extracted = item.extract()
+
+        self.es.index(index='doc-index', doc_type='doc-section-type', body=extracted, id=extracted['url'])
 
         return item
