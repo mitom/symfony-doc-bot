@@ -88,7 +88,7 @@ class DocSpider(CrawlSpider):
             # header of the section, it must be joined due to the tags inside it
             item["title"] = ''.join(admonition.xpath('*/p[contains(@class, "sidebar-title")]//text()').extract()).strip()
             # The text of the section html, whitespace stripped and single lined
-            item["content"] = ' '.join(section.xpath('p//text()').extract()).strip().replace('\n', ' ')
+            item["content"] = ' '.join(admonition.xpath('*/p[not(contains(@class, "title"))]//text()').extract()).strip().replace('\n', ' ')
             items.append(item)
 
         return items
