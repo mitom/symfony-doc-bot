@@ -41,9 +41,9 @@ class SectionPipeline(object):
 
         if extracted['url'] in self.tags:
             data = self.tags[extracted['url']]
-            for tag in data[0]:
+            item['boost'] += data[0]
+            for tag in data[1]:
                 item.add_tag(tag)
-            item['boost'] += data[1]
 
         # extract the new dataset
         extracted = item.extract()
