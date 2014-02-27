@@ -12,11 +12,10 @@ The format is:
 {"url": [0.00, ["tag 1","tag n"]]}
 ````
 
-Where `url` is the exact link to the section (including the # part), the value assigned to it is an array,
-that has exactly 2 keys, the first is an array of the `tags` (tags may contain spaces), the second is the
-`boost` **to be added** to the default/computed one. The smallest step for boost is 0.05. The boost is applied
-regardess of the tags, which means if the index is matched for a different reason, the boost specified here will
-still apply. The `boost` should only be used for articles that are important to show up in their topic.
+Where `url` is the exact link to the section (including the # part), the value assigned to it is an array
+that has exactly 2 keys. The first is the `boost` **to be added** to the default/computed one, the second is an array of the `tags` (tags may contain spaces).
+
+The smallest step for boost is 0.05. The boost is applied regardess of the tags, which means if the index is matched for a different reason, the boost specified here will still apply. The `boost` should only be used for articles that are important to show up in their topic.
 
 Changes are welcome to the tags, but will only be accepted if well reasoned and formatted. The tags can not contain
 duplicates, including the tags extracted by the scraper (the filename of the link, underscores replaced by spaces).
