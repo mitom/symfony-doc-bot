@@ -1,5 +1,6 @@
 import elasticutils
 import json
+import os
 
 class SectionPipeline(object):
     tags = {}
@@ -17,13 +18,14 @@ class SectionPipeline(object):
                     'analysis': {
                         'filter': {
                             'en_stop_filter': {'type': 'stop', 'stopwords': ['_english_']},
-                            'en_stem_filter': {'type': 'stemmer', 'name': 'minimal_english'}
+                            'en_stem_filter': {'type': 'stemmer', 'name': 'minimal_english'},
+                            'synonym': {'type': 'synonym', 'synonyms_path': os.path.abspath('synonym.txt')}
                         },
                         'analyzer': {
                             'en_analyzer': {
                                 'type': 'custom',
                                 'tokenizer': 'lowercase',
-                                'filter': ['asciifolding', 'word_delimiter', 'en_stop_filter', 'en_stem_filter']
+                                'filter': ['asciifolding', 'word_delimiter', 'en_stop_filter', 'en_stem_filter', 'synonym']
                             }
                         }
                     },
