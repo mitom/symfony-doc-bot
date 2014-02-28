@@ -20,6 +20,10 @@ The smallest step for boost is 0.05. The boost is applied regardess of the tags,
 Changes are welcome to the tags, but will only be accepted if well reasoned and formatted. The tags can not contain
 duplicates, including the tags extracted by the scraper (the filename of the link, underscores replaced by spaces).
 
+##Synonyms
+Synonyms are to be declared in [synonyms.txt](symfony_doc_spider/synonyms.txt) according to the ES format explained [here](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/analysis-synonym-tokenfilter.html#_solr_synonyms).
+
+
 ##Vagrant up!
 To run it in Vagrant just cd into the directory and run `vagrant up`. It will try to use `192.168.100.2` as a private ip.
 After the vm is up, you will have to edit the config for the bot in `/opt/cloudbot/config`, it is pretty straightforward.
