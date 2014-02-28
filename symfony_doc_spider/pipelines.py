@@ -13,16 +13,31 @@ class SectionPipeline(object):
         self.es.indices.create(
             index='doc-index',
             body={
+                'settings': {
+                    'analysis': {
+                        'filter': {
+                            'en_stop_filter': {'type': 'stop', 'stopwords': ['_english_']},
+                            'en_stem_filter': {'type': 'stemmer', 'name': 'minimal_english'}
+                        },
+                        'analyzer': {
+                            'en_analyzer': {
+                                'type': 'custom',
+                                'tokenizer': 'lowercase',
+                                'filter': ['asciifolding', 'word_delimiter', 'en_stop_filter', 'en_stem_filter']
+                            }
+                        }
+                    },
+                },
                 'mappings': {
                     'doc-section-type': {
-                        'analyzer': 'snowball',
+                        'analyzer': 'en_analyzer',
                         'url': {'type': 'string'},
                         'category': {'type': 'string'},
                         'tags': {'type': 'string', 'boost': 1.8},
                         'title': {'type': 'string', 'boost': 1},
                         'content': {'type': 'string'},
                         '_boost': {'name': 'boost', 'null_value': 1.0}
-                        }
+                    }
                 }
             }
         )
