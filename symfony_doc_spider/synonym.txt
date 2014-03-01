@@ -1,1 +1,1 @@
-dependency injection, DI => service container
+dependencyinjection, service container, dependency injection, di

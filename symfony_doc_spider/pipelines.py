@@ -35,7 +35,9 @@ class SectionPipeline(object):
                         'analyzer': 'en_analyzer',
                         'url': {'type': 'string'},
                         'category': {'type': 'string'},
-                        'tags': {'type': 'string', 'boost': 1.8},
+                        'tags': {'type': 'string', 'boost': 1.5},
+                        'article': {'type': 'string', 'boost': 1.5},
+                        'folder': {'type': 'string', 'boost': 1.3},
                         'title': {'type': 'string', 'boost': 1},
                         'content': {'type': 'string'},
                         '_boost': {'name': 'boost', 'null_value': 1.0}
@@ -50,6 +52,8 @@ class SectionPipeline(object):
     def process_item(self, item, spider):
         # default boost
         item.setdefault('boost', 1)
+        item.setdefault('tags', [])
+        item.setdefault('folder', None)
 
         # if there is no content it is probably (hopefully) a section with only config/code in it
         if item['content']== '':
