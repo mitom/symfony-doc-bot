@@ -24,14 +24,14 @@ class DocSpider(CrawlSpider):
     rules = (
         Rule(SgmlLinkExtractor(
             process_value=parseLink,
-            restrict_xpaths="descendant-or-self::*[@class and contains(concat(' ', normalize-space(@class), ' '), ' doc_page ')]//a[@class='reference internal']"
+            restrict_xpaths="descendant-or-self::*[@class and contains(concat(' ', normalize-space(@class), ' '), ' page ')]//a[@class='reference internal']"
         ), callback='parseArticle', follow=True, process_links=True),
     )
 
     def parseArticle(self, response):
         sel = Selector(response)
         # Select the document holder
-        sel = sel.css('div.doc_page')
+        sel = sel.css('div.page')
         # Needed to properly match the section headers (h1, h2...)
         depth = 1
         items = []
@@ -41,7 +41,7 @@ class DocSpider(CrawlSpider):
             items = items + self.parseSection(response, section, depth)
 
         return items
-
+descendant-or-self::*[@class and contains(concat(' ', normalize-space(@class), ' '), ' doc_page ')]//a[@class='reference internal']
     def parseSection(self, response, section, depth):
         item = SectionItem()
         items = []
