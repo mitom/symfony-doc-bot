@@ -7,4 +7,4 @@ echo "--> Installing scrapy"
 sudo pip install scrapy
 
 echo "--> Installing elasticutils"
-sudo pip install elasticutils==dev
+sudo pip install elasticutils

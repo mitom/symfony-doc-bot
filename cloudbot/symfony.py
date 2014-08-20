@@ -29,12 +29,11 @@ def symfony(inp):
 
     topScore = results.results[0]['_score']
     matches = []
-
-    for result in results:
-        if result._score + 0.5 >= topScore:
-            matches.append(result.url)
+    for result in results.results:
+        if result['_score'] + 0.5 >= topScore:
+            matches.append(result['_source']['url'])
         # left in for debug
-        #matches.append(str(result._score) + ' - ' + result.url)
+        #matches.append(str(result['_score']) + ' - ' + result['_source']['url'])
 
     if len(matches) > 1:
         responseText = "These are the docs I found most relevant for you: %s"

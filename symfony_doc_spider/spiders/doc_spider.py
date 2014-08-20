@@ -41,7 +41,7 @@ class DocSpider(CrawlSpider):
             items = items + self.parseSection(response, section, depth)
 
         return items
-descendant-or-self::*[@class and contains(concat(' ', normalize-space(@class), ' '), ' doc_page ')]//a[@class='reference internal']
+
     def parseSection(self, response, section, depth):
         item = SectionItem()
         items = []
