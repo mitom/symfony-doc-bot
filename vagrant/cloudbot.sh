@@ -33,6 +33,7 @@ done
 
 echo "--> Linking symfony plugin"
 ln -s /vagrant/cloudbot/symfony.py $DIR/plugins/
+ln -s /vagrant/cloudbot/help.py $DIR/plugins/
 
 echo "--> moving the default config in place"
 sudo mv $DIR/config.default $DIR/config
